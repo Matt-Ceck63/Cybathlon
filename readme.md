@@ -9,13 +9,6 @@ This repository contains:
 - C program for the microcontroller
 - Whole Cybathlon team wheelchair assembly with mounted arm
 
-To add:
-
-- Kinematic analysis file
-- Dynamic analysis file
-- Circuit diagram
-- Circuit schematic
-
 Rendered Assembly:
 
 Front Side
