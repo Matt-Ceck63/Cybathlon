@@ -2,6 +2,7 @@
 
 coordinates forward_kinematics_planar2R(angles joints){
     coordinates result;
+    joints = toRad(joints);
     result.x = L1 * cos(joints.q1) + L2 * cos(joints.q1 + joints.q2);
     result.y = L1 * sin(joints.q1) + L2 * sin(joints.q1 + joints.q2);
     return result;
@@ -13,7 +14,15 @@ angles inverse_kinematics_planar2R(coordinates position){
                                 (2*L1*L2));
     result.q1 = atan2(position.y, position.x) -          asin((L2*sin(result.q2))/
                                                 sqrt(pow(position.x,2) + pow(position.y, 2)));
-    return result;
+    return toDegrees(result);
+}
+
+angles toDegrees(angles input){
+    return {(input.q1)*180/PI, (input.q1)*180/PI};
+}
+
+angles toRad(angles input){
+    return{input.q1*DEG_TO_RAD, input.q2*DEG_TO_RAD};
 }
 
 bool check_circular_workspace(coordinates coordinates_to_check){

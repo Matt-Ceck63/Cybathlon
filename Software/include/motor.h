@@ -11,23 +11,38 @@
 #define ANGLE_PER_FULL_STEP 1.8
 #define FULL_STEP 1
 #define HALF_STEP 2
+#define QUARTER_STEP 4
+#define THIRTYTWO_STEP 32
+#define GEAR_MULTIPLIER 100
 
 struct stepper_motor{
+
     int pulse_plus;
     int pulse_min;
     int dir_plus;
     int dir_min;
 
+    // Gearing ratio 1 if 1:1 ratio, 100 id 100:1 output
+    // allows the angle to be controlled based on the output gear
+
+    int gearing_ratio;
+
     // If the motor is upside down the clockwise direction is opposite
     bool reversed;
 
+    // Set the appropriate pin values for CW or CCW depending on the motor
+    int cw;
+    int ccw;
+
+    // Current direction of motor
+    int dir;
+
+    // Stepper motor step mode
     int step_mode;
 
-    volatile uint16_t steps; //360/(1.8/stepMode)
-    int dir;
-    volatile double currAngle;
-
-    // Concurrency issues?
+    // Variables that are modified in the timer handlers
+    uint16_t steps; //360/(1.8/stepMode)
+    double currAngle;
 
 };
 
